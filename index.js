@@ -21,7 +21,8 @@ io.on('connection', function(socket){
 
     socket.on('disconnect', function(data){
         nUsers--;
-        io.emit('closeConnection', [newUser[ newUser.length-1 ],nUsers]);
+        var user = Array.isArray(newUser) ? newUser[ newUser.length-1 ] : newUser;
+        io.emit('closeConnection',[ user,nUsers]);
     });
 
     // New MSG
