@@ -11,6 +11,9 @@ $(document).ready(function(){
     // Set focus to msg input
     $( "#msgInput" ).focus();
 
+    // Audio notification
+    var audioAlert = $('#msg-alert');
+
     // New user
     var userId = Math.round(new Date().getTime() + (Math.random() * 100));
     $('#userId').val(userId);
@@ -35,6 +38,11 @@ $(document).ready(function(){
         nMsg['timestamp'] = msg['timestamp'];
         nMsg['msg']       = msg['msg'];
         app.msgs.push( nMsg );
+
+        // Play audio on new msg
+        if(  msg['user'] != userId ){
+            audioAlert[0].play();
+        }
     });
 
     socket.on('newConnection', function(user){
