@@ -10,6 +10,23 @@ form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 
 
 #msgContent li>span{display: block; overflow:auto;}
 
+/* FadeIn effect */
+.fade-in {
+	opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 0.5s;
+}
+
+@keyframes fadeInOpacity {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
 
 #msgContent li>span.msg>span.user{
     width:50px;

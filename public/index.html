@@ -21,26 +21,26 @@
         </div>
         <ul id="msgContent">
             <li v-for="msg in msgs">
-                <span v-show="msg['type'] == 'newMsg'" class="msg newMsg">
+                <span v-if="msg['type'] == 'newMsg'" class="msg newMsg fade-in">
                     <span class="user">U</span>
                     <span class="text"><strong>{{ msg['user'] }}</strong> {{ msg['msg'] }}</span>
                     <span class="date">{{ msg['timestamp'] }}</span>
                 </span>
     
-                <span v-show="msg['type'] == 'meMsg'" class="msg meMsg">
+                <span v-if="msg['type'] == 'meMsg'" class="msg meMsg">
                     <span class="text">{{ msg['msg'] }}</span>
                     <span class="date">{{ msg['timestamp'] }}</span>
                 </span>
     
-                <span v-show="msg['type'] == 'newUser'" class="newUser">
+                <span v-if="msg['type'] == 'newUser'" class="newUser">
                     <span>New user online: <strong>{{ msg['user'] }}</strong></span>
                 </span>
     
-                <span v-show="msg['type'] == 'exitUser'" class="exitUser">
+                <span v-if="msg['type'] == 'exitUser'" class="exitUser">
                     <span>The user <strong>{{ msg['user'] }}</strong> left the chat</span>
                 </span>
 
-                <span v-show="msg['type'] == 'changeUser'" class="changeUser">
+                <span v-if="msg['type'] == 'changeUser'" class="changeUser">
                         <span>The user <strong>{{ msg['old'] }}</strong> change name to <strong>{{ msg['new'] }}</strong></span>
                     </span>
     
