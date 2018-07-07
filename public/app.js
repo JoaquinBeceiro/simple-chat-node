@@ -1,5 +1,16 @@
 $(document).ready(function(){
 
+    var app = new Vue({
+        el: '#chatWindow',
+        data : {
+            msgs : [],
+            numberOfUsers: 0,
+        }
+    });
+
+    // Set focus to msg input
+    $( "#msgInput" ).focus();
+
     // New user
     var userId = Math.round(new Date().getTime() + (Math.random() * 100));
     $('#userId').val(userId);
@@ -18,45 +29,37 @@ $(document).ready(function(){
     });
 
     socket.on('chatMsg', function(msg){
-        console.log(msg);
-        var userSpan = $('<span></span>');
-        userSpan.text(msg['user']);
-        var userMsg = $('<li></li>');
-        userMsg.text('('+msg['timestamp']+') ');
-        userMsg.append(userSpan);
-        userMsg.append(' > '+msg['msg']);
-        $('#msgContent').append(userMsg);
+        let nMsg = [];
+        nMsg['user']      = msg['user'];
+        nMsg['type']      = msg['user'] == userId ? 'meMsg' : 'newMsg';
+        nMsg['timestamp'] = msg['timestamp'];
+        nMsg['msg']       = msg['msg'];
+        app.msgs.push( nMsg );
     });
 
     socket.on('newConnection', function(user){
-        var userMsg = $('<li></li>');
-        userMsg.append('New user online : '+user[0]);
-        $('#msgContent').append(userMsg);
-        $('#numberOfUsers').text( user[1] );
+        console.log(user);
+        let nMsg         = [];
+        nMsg['user']     = user[0];
+        nMsg['type']     = 'newUser';
+        app.msgs.push( nMsg );
+        app.numberOfUsers = user[1];
     });
 
     socket.on('closeConnection', function(user) {
-        console.log(user);
-        var userClose   = $('<span></span>');
-        userClose.text( user[0] );
-        var userMsg     = $('<li></li>');
-        userMsg.append(' - The user ');
-        userMsg.append(userClose);
-        userMsg.append(' left the chat');
-
-        $('#msgContent').append(userMsg);
-        $("#numberOfUsers").text( user[1] );
+        let nMsg = [];
+        nMsg['user']      = user[0];
+        nMsg['type']      = 'exitUser';
+        app.msgs.push( nMsg );
+        app.numberOfUsers = user[1];
     });
 
     socket.on('changeName', function(name){
-        var userMsg = $('<li></li>');
-        var oldUser = $('<span>'+name[0]+'</span>');
-        var newUser = $('<span>'+name[1]+'</span>');
-        userMsg.append(' - The user ');
-        userMsg.append(oldUser);
-        userMsg.append(' change name to ');
-        userMsg.append(newUser);
-        $('#msgContent').append(userMsg);
+        let nMsg = [];
+        nMsg['old']      = name[0];
+        nMsg['new']      = name[1];
+        nMsg['type']      = 'changeUser';
+        app.msgs.push( nMsg );
     });
 
 
