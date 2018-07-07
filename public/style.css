@@ -1,9 +1,9 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font: 13px 'Roboto', sans-serif;}
 form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
-form #userId { border: 0; padding: 10px; width: 19%; margin-right: .5%; float:left; color:red; }
-form #msgInput { border: 0; padding: 10px; width: 70%; margin-right: .5%; }
-form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+form #userId {width: 100%; }
+/* form #msgInput { border: 0; padding: 10px; width: 70%; margin-right: .5%; } */
+/* form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; } */
 #msgContent { list-style-type: none; margin: 0; padding: 0; }
 
 #msgContent li { padding: 5px 10px; }
